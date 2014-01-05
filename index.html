@@ -37,22 +37,22 @@
 		</form>
 
 		<ul class="godolist">
-            <li ng-repeat="godo in godos | filter: category" class="border border-gray rounded-corners">
-                <div class="button-container">
-                    <button ng-click="togglecheckGodo(godo)" class="check-task completed-{{godo.done}}">
-                        <div class="checkMark"></div>
-                    </button>
-                </div>
-                
-                <div ng-hide="godo.editing" ng-dblclick="editGodo(godo)" class="task-text unselectable">{{godo.task}}</div>
+                    <li ng-repeat="godo in godos | filter: category" class="border border-gray rounded-corners">
+                        <div class="button-container">
+                            <button ng-click="togglecheckGodo(godo)" class="check-task completed-{{godo.done}}">
+                                <div class="checkMark"></div>
+                            </button>
+                        </div>
+                        
+                        <div ng-hide="godo.editing" ng-dblclick="editGodo(godo)" class="task-text unselectable">{{godo.task}}</div>
 
-                <form ng-show="godo.editing" ng-submit="doneEditGodo(godo)" class="edit-task">
-                    <input type="text" on-blur="doneEditGodo(godo)" set-focus="godo.editing" ng-model="godo.task" class="edit-task-text" value="{{godo.task}}">
-                </form>
+                        <form ng-show="godo.editing" ng-submit="doneEditGodo(godo)" class="edit-task">
+                            <input type="text" on-blur="doneEditGodo(godo)" set-focus="godo.editing" ng-model="godo.task" class="edit-task-text" value="{{godo.task}}">
+                        </form>
 
-                <button ng-click="removeGodo(godo)" class="delete-task"></button>
-                
-            </li>
+                        <button ng-click="removeGodo(godo)" class="delete-task"></button>
+                        
+                    </li>
 		</ul>
 	
 	</div>
