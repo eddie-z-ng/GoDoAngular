@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>godo</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+
+	<div ng-app="godo" ng-controller="GodoController" class="godoapp border border-gray">
+
+		<div id="godoheader" class="gradient">
+			<div id="godologo"></div>
+		</div>
+		
+		<ul class="godo-filter-container border border-gray rounded-corners">
+			<li class="filter" id="filter-all">
+				<button ng-click="setCategory()" ng-class="{'selected-filter': category.done == undefined}" class="filter-button gradient">
+                    All <span class="filter-count">({{remaining()}})</span></button>
+			</li>
+			<li class="filter" id="filter-active">
+				<button ng-click="setCategory(false)" ng-class="{'selected-filter': category.done == false}" class="filter-button gradient">
+                    Active <span class="filter-count">({{remaining(false)}})</span></button>
+			</li>
+			<li class="filter" id="filter-complete">
+				<button ng-click="setCategory(true)" ng-class="{'selected-filter': category.done == true}" class="filter-button gradient">
+                    Complete <span class="filter-count">({{remaining(true)}})</span></button>
+			</li>
+		</ul>
+		
+		<div class="horizontal-divide"></div>
+		
+		<form ng-submit="addGodo()" id="inputForm">
+			<input type="text" ng-model="godoText" placeholder="What needs to be done?" id="input-task" class="border border-gray rounded-corners"/>
+		</form>
+
+		<ul class="godolist">
+            <li ng-repeat="godo in godos | filter: category" class="border border-gray rounded-corners">
+                <div class="button-container">
+                    <button ng-click="togglecheckGodo(godo)" class="check-task completed-{{godo.done}}">
+                        <div class="checkMark"></div>
+                    </button>
+                </div>
+                
+                <div ng-hide="godo.editing" ng-dblclick="editGodo(godo)" class="task-text unselectable">{{godo.task}}</div>
+
+                <form ng-show="godo.editing" ng-submit="doneEditGodo(godo)" class="edit-task">
+                    <input type="text" on-blur="doneEditGodo(godo)" set-focus="godo.editing" ng-model="godo.task" class="edit-task-text" value="{{godo.task}}">
+                </form>
+
+                <button ng-click="removeGodo(godo)" class="delete-task"></button>
+                
+            </li>
+		</ul>
+	
+	</div>
+
+</body>
+</html>
